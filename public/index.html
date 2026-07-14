@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Redis</title>
+
+</head>
+
+<body>
+
+<h2>Salvar valor no Redis</h2>
+
+<input type="text" id="valor">
+
+<button onclick="salvar()">
+Salvar
+</button>
+
+<p id="resultado"></p>
+
+<script>
+
+async function salvar(){
+
+    const valor = document.getElementById("valor").value;
+
+    const resposta = await fetch("/valor",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+            valor
+        })
+
+    });
+
+    const dados = await resposta.json();
+
+    if(resposta.status == 200 || resposta.status == 201){
+
+        document.getElementById("resultado").innerHTML="Valor salvo com sucesso!";
+
+    }else{
+
+        document.getElementById("resultado").innerHTML="Falha ao salvar.";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>
